@@ -1,0 +1,29 @@
+type CreateTaskInput = record {
+  title : text;
+  description : text;
+};
+
+type Task = record {
+  id : nat64;
+  title : text;
+  description : text;
+  completed : bool;
+  created_at : nat64;
+  updated_at : nat64;
+};
+
+type UpdateTaskInput = record {
+  title : opt text;
+  description : opt text;
+  completed : opt bool;
+};
+
+service : {
+  create_task : (CreateTaskInput) -> (Task);
+  get_all_tasks : () -> (vec Task) query;
+  get_task : (nat64) -> (opt Task) query;
+  update_task : (nat64, UpdateTaskInput) -> (opt Task);
+  delete_task : (nat64) -> (bool);
+  get_task_count : () -> (nat64) query;
+  clear_all_tasks : () -> (bool);
+}
